@@ -175,13 +175,15 @@ class Controller:
         self.GM.activateCell(clickX,clickY)
         self.GV.updateScreen()
 
-GC = Controller()
+#Tests regarding GameModel object
 class TestGameModel(unittest.TestCase):
+    #This test creates a verticle line of 3 cells, updates the model one iteration, and measures the horizontal line of 3 cells that results from this configuration.
     def test_basicTest(self):
         GM = GameModel(20,20)
         GM.activateCell(3,2)
         GM.activateCell(3,3)
         GM.activateCell(3,4)
+       
         GM.updateState()
 
         self.assertFalse(GM.cellIsLive(3,2))
@@ -191,20 +193,28 @@ class TestGameModel(unittest.TestCase):
         self.assertTrue(GM.cellIsLive(3,3))
         self.assertTrue(GM.cellIsLive(4,3))
 
+#Tests regarding GameView Object
 class TestGameView(unittest.TestCase):
+    #this test displays the screen with one cell activated
     def test_TK(self):
         GM = GameModel(40,40)
         GV = GameView(GM)
         GM.activateCell(3,3)
         GV.updateScreen()
         GV.gameCanvas.update()
+    #This tests the RGBtoHex function
     def test_viewFunction(self):
         GV2 = GameView(GameModel(10,10))
         self.assertEqual(GV2.RGBtoHex(255,255,255),"#ffffff")
 
-       
+#The following code is technically a change in functionality though necessary for unit testing
+print("Type 'y' for unit testing, type 'n' to launch the program")       
+inp = input()
+if inp == "y":
+    unittest.main()
+else:
+    GC = Controller()
 
-unittest.main()
 
         
 
