@@ -134,6 +134,7 @@ class GameView():
         self.model = model
         self.PIXEL_SIZE = 25
         self.gameCanvas = Canvas(self.TK, width = self.model.width * self.PIXEL_SIZE, height = self.model.height * self.PIXEL_SIZE, bg="#000000")
+        self.gameCanvas.pack()
         
         
         
@@ -174,6 +175,17 @@ class TestGameModel(unittest.TestCase):
         self.assertTrue(GM.cellIsLive(2,3))
         self.assertTrue(GM.cellIsLive(3,3))
         self.assertTrue(GM.cellIsLive(4,3))
+
+class TestGameView(unittest.TestCase):
+    def test_TK(self):
+        GM = GameModel(40,40)
+        GV = GameView(GM)
+        GM.activateCell(3,3)
+        GV.updateScreen()
+        GV.gameCanvas.update()
+
+       
+
 unittest.main()
 
         
