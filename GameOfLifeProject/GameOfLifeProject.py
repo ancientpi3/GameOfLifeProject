@@ -22,12 +22,12 @@ import unittest
 #PXL_W = int(WINW/PXW)
 #PXL_H = int(WINH/PXW)
 #Key = True
-#
+
 #b = [0]*(PXL_W+1)
 #d = [b]*(PXL_H+1)
-#
+
 #gridState=numpy.array(d)
-#
+
 #def callback(event):
 #    global gridState
 #    clickX = int(event.x/PXW)
@@ -50,7 +50,7 @@ import unittest
 
 
 #SET=[[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0],[-1,1]]
-#            
+            
 #while True:
 #    if Key:
 #        drawTk.update()
@@ -130,13 +130,24 @@ class GameView():
     hexx = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","10"]
     #Initialize a gameview, passing a GameModel as a parameter. Constructs a Canvas object
     def __init__(self,model):
-        print("stub")
+        self.TK = Tk()
+        self.model = model
+        self.PIXEL_SIZE = 25
+        self.gameCanvas = Canvas(self.TK, width = self.model.width * self.PIXEL_SIZE, height = self.model.height * self.PIXEL_SIZE, bg="#000000")
+        
+        
+        
     #This code looks smelly but all it does is convert an RGB value to a Hex value
     def RGBtoHex(self,r,g,b):
-        return "stub"
+        return "#" + self.hexx[int(((r-(r%16))/16))]+self.hexx[int(r%16)] + self.hexx[int(((g-(g%16))/16))]+self.hexx[int(g%16)] + self.hexx[int(((b-(b%16))/16))]+self.hexx[int(b%16)]
     #Reads from the current state of the gamemodel and 
     def updateScreen(self):
-        print("stub")
+        self.gameCanvas.delete("all")
+        for x in range(self.model.width-1):
+            for y in range(self.model.height-1):
+                if self.model.gridState[x][y] == 1:
+                    self.gameCanvas.create_rectangle(x*self.PIXEL_SIZE,y*self.PIXEL_SIZE,x*self.PIXEL_SIZE+self.PIXEL_SIZE,y*self.PIXEL_SIZE+self.PIXEL_SIZE,fill = self.RGBtoHex((x/self.model.width)*255,(y/self.model.height)*255,255))
+
 
 class Controller:
     #This constructor will create a GameModel, GameView, and pass the model into the view
@@ -164,3 +175,6 @@ class TestGameModel(unittest.TestCase):
         self.assertTrue(GM.cellIsLive(3,3))
         self.assertTrue(GM.cellIsLive(4,3))
 unittest.main()
+
+        
+
