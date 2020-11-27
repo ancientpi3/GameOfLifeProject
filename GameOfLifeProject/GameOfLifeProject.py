@@ -9,6 +9,7 @@ import copy
 import time
 import random
 import numpy
+import unittest
 #hexx = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","10"]
 #def NumToHex(num):
 #    return hexx[int(((num-(num%16))/16))]+hexx[int(num%16)]
@@ -147,3 +148,19 @@ class Controller:
     #Event function called when mouse is clicked
     def callback(self,event):
         print("stub")
+
+class TestGameModel(unittest.TestCase):
+    def test_basicTest(self):
+        GM = GameModel(20,20)
+        GM.activateCell(3,2)
+        GM.activateCell(3,3)
+        GM.activateCell(3,4)
+        GM.updateState()
+
+        self.assertFalse(GM.cellIsLive(3,2))
+        self.assertFalse(GM.cellIsLive(3,4))
+
+        self.assertTrue(GM.cellIsLive(2,3))
+        self.assertTrue(GM.cellIsLive(3,3))
+        self.assertTrue(GM.cellIsLive(4,3))
+unittest.main()
