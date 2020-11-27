@@ -36,8 +36,8 @@ import numpy
 #    gridState[clickX][clickY] = 1
 #
 #def Update(char):
-    global Key
-    Key = False
+#    global Key
+#    Key = False
 
 #drawTk = Tk()
 #drawCanv = Canvas(drawTk, width=WINW, height=WINH, bg="#000000")
@@ -82,3 +82,20 @@ import numpy
 #        Key = True
 #        
 #drawTk.destroy()
+
+class GameModel:
+    #Initialize a gamemodel with cell width and height.
+    def __init__(self,width,height):
+        print("stub")
+    
+    #Loops through copy of gamestate array and updates gamestate according to rules.
+    def updateState(self):
+        print("stub")
+    
+    #Returns true if the cell is live and false if the cell is dead
+    def cellIsLive(self,x,y):
+        return "stub"
+    
+    #Activates cell if it is dead, Deactivates cell if it is alive.
+    def activateCell(self,x,y):
+        print("stub")
