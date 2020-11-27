@@ -99,3 +99,26 @@ class GameModel:
     #Activates cell if it is dead, Deactivates cell if it is alive.
     def activateCell(self,x,y):
         print("stub")
+class GameView():
+    
+    hexx = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","10"]
+    #Initialize a gameview, passing a GameModel as a parameter. Constructs a Canvas object
+    def __init__(self,model):
+        print("stub")
+    #This code looks smelly but all it does is convert an RGB value to a Hex value
+    def RGBtoHex(self,r,g,b):
+        return "stub"
+    #Reads from the current state of the gamemodel and 
+    def updateScreen(self):
+        print("stub")
+
+class Controller:
+    #This constructor will create a GameModel, GameView, and pass the model into the view
+    def __init__(self):
+        print("stub")
+    #Event function called when any key is pressed
+    def Update(self,char):
+        print("stub")
+    #Event function called when mouse is clicked
+    def callback(self,event):
+        print("stub")
