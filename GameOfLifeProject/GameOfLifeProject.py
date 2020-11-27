@@ -151,16 +151,31 @@ class GameView():
 
 
 class Controller:
+    
     #This constructor will create a GameModel, GameView, and pass the model into the view
     def __init__(self):
-        print("stub")
+        self.GM = GameModel(20,20)
+        self.GV = GameView(self.GM)
+        
+        self.GV.gameCanvas.bind("<ButtonPress>", self.callback)
+        self.GV.gameCanvas.focus_set()
+        self.GV.gameCanvas.bind('<Key>', self.Update)
+        self.GV.gameCanvas.pack()
+
+        while (True):
+            self.GV.TK.update()
     #Event function called when any key is pressed
     def Update(self,char):
-        print("stub")
+        self.GM.updateState()
+        self.GV.updateScreen()
     #Event function called when mouse is clicked
     def callback(self,event):
-        print("stub")
+        clickX = int(event.x/self.GV.PIXEL_SIZE)
+        clickY = int(event.y/self.GV.PIXEL_SIZE)
+        self.GM.activateCell(clickX,clickY)
+        self.GV.updateScreen()
 
+GC = Controller()
 class TestGameModel(unittest.TestCase):
     def test_basicTest(self):
         GM = GameModel(20,20)
@@ -183,6 +198,9 @@ class TestGameView(unittest.TestCase):
         GM.activateCell(3,3)
         GV.updateScreen()
         GV.gameCanvas.update()
+    def test_viewFunction(self):
+        GV2 = GameView(GameModel(10,10))
+        self.assertEqual(GV2.RGBtoHex(255,255,255),"#ffffff")
 
        
 
