@@ -162,8 +162,8 @@ class Controller:
         self.GV.gameCanvas.bind('<Key>', self.Update)
         self.GV.gameCanvas.pack()
 
-        while (True):
-            self.GV.TK.update()
+        #while (True):
+        self.GV.gameCanvas.mainloop()
     #Event function called when any key is pressed
     def Update(self,char):
         self.GM.updateState()
