@@ -102,6 +102,11 @@ class Controller:
 #Tests regarding GameModel object
 class TestGameModel(unittest.TestCase):
     #This test creates a verticle line of 3 cells, updates the model one iteration, and measures the horizontal line of 3 cells that results from this configuration.
+    
+    def test_unitTest(self):
+        GM = GameModel(20,20)
+        self.assertFalse(GM.cellIsLive(2,2))
+    
     def test_basicTest(self):
         GM = GameModel(20,20)
         GM.activateCell(3,2)
