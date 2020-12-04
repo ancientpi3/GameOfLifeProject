@@ -1,15 +1,14 @@
 from tkinter import Tk, Canvas, PhotoImage, mainloop
 import copy
-import numpy
-import unittest
+
+
 
 
 class GameModel:
     
-    #A set used for observings cells around a pixel
     SET=[[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0],[-1,1]]
     
-    #Initializes a gamemodel with cell width and height.
+    #Initialize a gamemodel with cell width and height.
     def __init__(self,width,height):
         self.width = width
         self.height = height
@@ -57,11 +56,12 @@ class GameView():
         self.gameCanvas = Canvas(self.TK, width = self.model.width * self.PIXEL_SIZE, height = self.model.height * self.PIXEL_SIZE, bg="#000000")
         self.gameCanvas.pack()
         
+        
+        
     #This code looks smelly but all it does is convert an RGB value to a Hex value
     def RGBtoHex(self,r,g,b):
         return "#" + self.hexx[int(((r-(r%16))/16))]+self.hexx[int(r%16)] + self.hexx[int(((g-(g%16))/16))]+self.hexx[int(g%16)] + self.hexx[int(((b-(b%16))/16))]+self.hexx[int(b%16)]
-    
-    #Reads from the current state of the gamemodel and uses that information to draw colored rectangles on the screen
+    #Reads from the current state of the gamemodel and 
     def updateScreen(self):
         self.gameCanvas.delete("all")
         for x in range(self.model.width-1):
@@ -74,20 +74,16 @@ class Controller:
     
     #This constructor will create a GameModel, GameView, and pass the model into the view
     def __init__(self):
-        
-        #Creates GameModel and GameView
         self.GM = GameModel(20,20)
         self.GV = GameView(self.GM)
         
-        #Binds event handlers to the canvas of the GameView
         self.GV.gameCanvas.bind("<ButtonPress>", self.callback)
         self.GV.gameCanvas.focus_set()
         self.GV.gameCanvas.bind('<Key>', self.Update)
         self.GV.gameCanvas.pack()
 
-        #Runs the main loop of the GUI object
-        self.GV.gameCanvas.mainloop();
-        
+        while (True):
+            self.GV.TK.update()
     #Event function called when any key is pressed
     def Update(self,char):
         self.GM.updateState()
@@ -98,7 +94,7 @@ class Controller:
         clickY = int(event.y/self.GV.PIXEL_SIZE)
         self.GM.activateCell(clickX,clickY)
         self.GV.updateScreen()
-        
+
 #Tests regarding GameModel object
 class TestGameModel(unittest.TestCase):
     #This test creates a verticle line of 3 cells, updates the model one iteration, and measures the horizontal line of 3 cells that results from this configuration.
@@ -138,7 +134,3 @@ if inp == "y":
     unittest.main()
 else:
     GC = Controller()
-
-
-        
-
